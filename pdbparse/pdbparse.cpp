@@ -37,12 +37,12 @@ static std::string get_pdb_path(const module_t &module_info, bool is_wow64)
 	if (tmp_folder_path.empty())
 	{
 		char folder_buff[MAX_PATH];
-		GetTempPath(MAX_PATH, folder_buff);
+		GetTempPathA(MAX_PATH, folder_buff);
 
 		tmp_folder_path = folder_buff;
 	}
 
-	auto does_file_exist = [](std::string_view path) { return GetFileAttributes(path.data()) != INVALID_FILE_ATTRIBUTES; };
+	auto does_file_exist = [](std::string_view path) { return GetFileAttributesA(path.data()) != INVALID_FILE_ATTRIBUTES; };
 
 	//determine PDB path by checking debug directory
 	const uintptr_t debug_directory = (is_wow64 ? module_info.ImageHeaders.image_headers32->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_DEBUG].VirtualAddress : module_info.ImageHeaders.image_headers64->OptionalHeader.DataDirectory[IMAGE_DIRECTORY_ENTRY_DEBUG].VirtualAddress);
@@ -88,16 +88,16 @@ static std::string get_pdb_path(const module_t &module_info, bool is_wow64)
 
 			//download it from the symbol server if we dont have it
 			//first create the subdiectory with the pdb name
-			CreateDirectory((tmp_folder_path + codeview_info->PdbFileName).c_str(), nullptr);
+			CreateDirectoryA((tmp_folder_path + codeview_info->PdbFileName).c_str(), nullptr);
 
 			//then create the guid directory
-			CreateDirectory(expected_pdb_path.substr(0, expected_pdb_path.find_last_of('\\')).c_str(), nullptr);
+			CreateDirectoryA(expected_pdb_path.substr(0, expected_pdb_path.find_last_of('\\')).c_str(), nullptr);
 
 			//symbol server to use
 			constexpr auto symbol_server = "http://msdl.microsoft.com/download/symbols/";
 
 			//download it
-			if (URLDownloadToFile(nullptr, (symbol_server + pdb_extention_path.str()).c_str(), expected_pdb_path.c_str(), 0, nullptr) != S_OK)
+			if (URLDownloadToFileA(nullptr, (symbol_server + pdb_extention_path.str()).c_str(), expected_pdb_path.c_str(), 0, nullptr) != S_OK)
 				break;
 
 			//check if it was actually downloaded

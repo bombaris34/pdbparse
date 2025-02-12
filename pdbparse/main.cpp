@@ -13,7 +13,7 @@
 static module_t get_module_info(std::string_view path, bool is_wow64)
 {
 	//read raw bytes
-	const auto file = CreateFile(path.data(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
+	const auto file = CreateFileA(path.data(), GENERIC_READ, FILE_SHARE_READ, nullptr, OPEN_EXISTING, 0, nullptr);
 
 	if (!file || file == INVALID_HANDLE_VALUE)
 		return module_t();
