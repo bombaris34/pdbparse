@@ -12,5 +12,11 @@ urlmon.lib, for downloading the .pdb file
 
 You also need a C++17-compliant compiler.
 
+The following commands must be ran in an elevated command prompt if you aren't able to use dia:
+
+regsvr32 "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\DIA SDK\bin\msdia140.dll"
+
+regsvr32 "C:\Program Files (x86)\Microsoft Visual Studio\2022\Community\DIA SDK\bin\amd64\msdia140.dll"
+
 
 This supports both x86 and x64, including the example.

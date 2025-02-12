@@ -4,11 +4,14 @@
 #include <iomanip>
 #include "pdbparse.hpp"
 #pragma comment(lib, "Urlmon.lib")
-#pragma comment(lib, "diaguids.lib")
+
 
 //undefined on x86, define it here so we can use constexpr if statements instead of ugly macros
 #ifndef _M_X64
+#pragma comment(lib, "diaguids.lib")
 #define _M_X64 0
+#else
+#pragma comment(lib, "diaguids64.lib")
 #endif
 
 //helper function to parse a module
@@ -80,6 +83,7 @@ static void output_function_address(std::string_view function_name, const module
 
 int main(int argc, char **argv)
 {
+	LoadLibraryA ( "msdia140.dll" );
 	std::cout << "x86 ntdll:" << std::endl;
 
 	auto ntdll32 = get_module_info("C:\\Windows\\SysWOW64\\ntdll.dll", true);

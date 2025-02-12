@@ -7,6 +7,7 @@
 #include <iomanip>
 #include <urlmon.h>
 #include <algorithm>
+#include <iostream>
 
 //codeview debug struct, there is no fucking documentation so i had to search a bit
 //big thanks to https://jpassing.com/2009/04/22/uniquely-identifying-a-modules-build/
@@ -175,23 +176,32 @@ uintptr_t pdb_parse::get_address_from_symbol ( std::string_view function_name, c
 
   if ( FAILED ( CoCreateInstance ( CLSID_DiaSource, NULL, CLSCTX_INPROC_SERVER, __uuidof( IDiaDataSource ), ( void** ) &source ) ) )
     return 0;
-
+  HRESULT hr = 0;
   {
     wchar_t wide_path [ MAX_PATH ];
     memset ( wide_path, 0, MAX_PATH * 2 );
 
     MultiByteToWideChar ( CP_ACP, 0, pdb_path.c_str ( ), ( int ) pdb_path.length ( ), wide_path, MAX_PATH );
-    if ( FAILED ( source->loadDataFromPdb ( wide_path ) ) )
+    if ( FAILED ( hr = source->loadDataFromPdb ( wide_path ) ) )
+    {
+      std::cout << "Error: " << hr << std::endl;
       return 0;
+    }
   }
 
   CComPtr<IDiaSession> session;
-  if ( FAILED ( source->openSession ( &session ) ) )
+  if ( FAILED ( hr = source->openSession ( &session ) ) )
+  {
+    std::cout << "Error: " << hr << std::endl;
     return 0;
+  }
 
   CComPtr<IDiaSymbol> global;
-  if ( FAILED ( session->get_globalScope ( &global ) ) )
+  if ( FAILED ( hr = session->get_globalScope ( &global ) ) )
+  {
+    std::cout << "Error: " << hr << std::endl;
     return 0;
+  }
 
   CComPtr<IDiaEnumSymbols> enum_symbols;
   CComPtr<IDiaSymbol> current_symbol;
