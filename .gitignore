@@ -36,3 +36,17 @@ pdbparse/Release
 x64/
 pdbparse/x64
 .vs/
+pdbparse/Debug/vc143.pdb
+pdbparse/Debug/vc143.idb
+pdbparse/Debug/pdbparse.tlog/pdbparse.lastbuildstate
+pdbparse/Debug/pdbparse.tlog/link.write.1.tlog
+pdbparse/Debug/pdbparse.tlog/link.secondary.1.tlog
+pdbparse/Debug/pdbparse.tlog/link.read.1.tlog
+pdbparse/Debug/pdbparse.tlog/CL.write.1.tlog
+pdbparse/Debug/pdbparse.tlog/link.command.1.tlog
+pdbparse/Debug/pdbparse.tlog/CL.read.1.tlog
+pdbparse/Debug/pdbparse.tlog/Cl.items.tlog
+pdbparse/Debug/pdbparse.tlog/CL.command.1.tlog
+pdbparse/Debug/pdbparse.log
+pdbparse/Debug/pdbparse.ilk
+pdbparse/Debug/pdbparse.exe.recipe

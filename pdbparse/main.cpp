@@ -3,6 +3,8 @@
 #include <iostream>
 #include <iomanip>
 #include "pdbparse.hpp"
+#pragma comment(lib, "Urlmon.lib")
+#pragma comment(lib, "diaguids.lib")
 
 //undefined on x86, define it here so we can use constexpr if statements instead of ugly macros
 #ifndef _M_X64

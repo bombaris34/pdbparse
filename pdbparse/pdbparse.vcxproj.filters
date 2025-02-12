@@ -29,5 +29,11 @@
     <ClInclude Include="structs.hpp">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="dia2.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="cvconst.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
